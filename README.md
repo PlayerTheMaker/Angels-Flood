@@ -6,6 +6,8 @@ Powered by [parens-8](https://codeberg.org/wellspring-labs/parens-8/) v5 by Miss
 
 Original pico32 launcher code by Werxyz.
 
+Final build created with [shrink08](https://github.com/thisismypassport/shrinko8) by thisismypassword/thisismypassport.
+
 #### File Structure
 `dialogue.p8` is used to generate spritesheet data that contains the dialogue for the game, and the code in that file in not included in the build.
 `merged_code.p8` contains the code from `angels_flood.p8` and `parens8_code.p8`, but is not executable without being run through [shrink08](https://github.com/thisismypassport/shrinko8)
