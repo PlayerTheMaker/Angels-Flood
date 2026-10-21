@@ -135,13 +135,11 @@ while i <= dget(0) do
  if i == 4 and total_score < 1000 then
   add(level_options,{"\f2\t\t\t"..total_score.."\fd/1000",nothing})
  elseif i <= 4 then
- 	add(level_options,{"Level "..i.."\f1 - \f2"..dget(i),start_gameplay,i})
+ 	add(level_options,{"Level "..i..(dget(0)>=i and "\fa ★ \f2" or "\f1 - \f2")..dget(i),start_gameplay,i})
  end
 end
 
-if dget(0) > 3 then
-	add(level_options,{"\fd\t\t\t\t\|e "..total_score,nothing})
-end
+add(level_options,{"\fd\t\t\t\t\|e "..total_score,nothing})
 
 set_highscore(total_score)
 
@@ -530,7 +528,7 @@ function create_world()
  
  local move_chance = .1+.05*level
  local enemy_chance = .05*level
- local number_of_blocks = 65
+ local number_of_blocks = 1
 	for i = 1,number_of_blocks do
 	 
 	 local extra_blocks = rnd()<.15 and 1 or 0
