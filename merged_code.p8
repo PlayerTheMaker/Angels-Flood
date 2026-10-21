@@ -1759,6 +1759,7 @@ curr_options = main_options
 local i = 0
 cartdata(credit_text[22])
 total_score = 0
+local total_shown = false
 for i = 1,4 do total_score += dget(i) end
 while #level_options > 0 do deli(level_options) end
 add(level_options,{credit_text[11],change_options,main_options})
@@ -1766,12 +1767,15 @@ while i <= dget(0) do
  i += 1
  if i == 4 and total_score < 1000 then
   add(level_options,{"\f2\t\t\t"..total_score.."\fd/1000",nothing})
+  total_shown = true
  elseif i <= 4 then
- 	add(level_options,{"Level "..i..(dget(0)>=i and "\fa ★ \f2" or "\f1 - \f2")..dget(i),start_gameplay,i})
+ 	add(level_options,{"Level "..i..(dget(0)>=i and "\fa * \f2" or "\f1 - \f2")..dget(i),start_gameplay,i})
  end
 end
 
-add(level_options,{"\fd\t\t\t\t\|e "..total_score,nothing})
+if not total_shown then
+ add(level_options,{"\fd\t\t\t\t\|e "..total_score,nothing})
+end
 
 set_highscore(total_score)
 
