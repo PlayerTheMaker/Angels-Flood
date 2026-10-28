@@ -1439,10 +1439,12 @@ angel = box:new(
 
 initfunc = function(_ENV)
 if not init then
-done = false
-ang = .5
-desiredang = .5
-timeoff=rnd()-.5
+wings,
+done,
+ang,
+desiredang, 
+timeoff
+= 2,false,.5,.5,rnd()-.5
 animang=timeoff
 purity = not (scorch or scrubs)
 y = endy-20
@@ -1648,14 +1650,16 @@ if shooter then
 		if squish < .6 then
 cycleup = true
 col = 6
-local ang = atan2(player.x-x,player.z-z)
+local ang,ang2 = 
+atan2(player.x-x,player.z-z),
+atan2(player.y-y,player.z-z)
 sfx"12"
 add(world,
 box:new({
 w=3,h=3,d=3,
 x=x,y=y,z=z,dmg=true,
 vx=cos(ang),vz=sin(ang),
-vy=0,
+vy=cos(ang2)*.5,
 vs=.008,
 vg=.001}))
 		end
@@ -1765,8 +1769,8 @@ while #level_options > 0 do deli(level_options) end
 add(level_options,{credit_text[11],change_options,main_options})
 while i <= dget(0) do
  i += 1
- if i == 4 and total_score < 1000 then
-  add(level_options,{"\f2\t\t\t"..total_score.."\fd/1000",nothing})
+ if i == 4 and total_score < 1250 then
+  add(level_options,{"\f2\t\t\t"..total_score.."\fd/1250",nothing})
   total_shown = true
  elseif i <= 4 then
  	add(level_options,{"Level "..i..(dget(0)>=i and "\fa * \f2" or "\f1 - \f2")..dget(i),start_gameplay,i})
@@ -1777,7 +1781,9 @@ if not total_shown then
  add(level_options,{"\fd\t\t\t\t\|e "..total_score,nothing})
 end
 
-set_highscore(total_score)
+if get_highscore(29) << 16 < total_score then
+ set_highscore(total_score >> 16)
+end
 
 lavatide = false
 dead = false
@@ -1799,7 +1805,7 @@ render_dist = 250
 
 pauseitem(1, credit_text[7], to_menu)
 pauseitem(2, credit_text[8], music_reset)
-pauseitem(3, credit_text[9], function() pauseitem(4, credit_text[10], function() cartdata(credit_text[22]) for i = 0,64 do dset(i,0) end set_highscore(0) to_menu() return true end) end)
+pauseitem(3, credit_text[9], function() pauseitem(4, credit_text[10], function() cartdata(credit_text[22]) for i = 0,64 do dset(i,0) end to_menu() return true end) end)
 
 music_reset("true")
 
@@ -1973,7 +1979,7 @@ blocks=split"14,1,4,4,13"
 }
 
 level = 1
-lavaspds = {.0555,.0875,.0935,.1122}
+lavaspds = {.055,.089,.094,.1122}
 lava_particles = {}
 particles = {}
 death_anim = -300
